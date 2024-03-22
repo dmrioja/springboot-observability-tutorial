@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: service-app
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - health
+        - prometheus
