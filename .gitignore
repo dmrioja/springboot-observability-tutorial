@@ -3,6 +3,7 @@
 !src/**/build/
 /bin/*
 /gradle/wrapper/gradle-wrapper.jar
+.vscode
 
 # Cache of project
 .gradletasknamecache
