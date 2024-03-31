@@ -9,6 +9,7 @@ management:
         include:
         - health
         - metrics
+        - prometheus
 
   otlp:
     metrics:
@@ -23,11 +24,28 @@ management:
       probability: 1.0
 
   metrics:
-    tags:
-      department: ${SERVICE_DEPARTMENT:software}
-      team: ${SERVICE_TEAM:greeting}
-      service: ${spring.application.name}
-      env: ${SERVICE_ENV:dev}
-      region: ${SERVICE_REGION:europe-west1}
-      instance:
-        id: ${SERVICE_INSTANCE_ID:asdlkjaslkdjasljdlasd}
+    distribution:
+      percentiles:
+        '[do.sleep.method.timed]':
+          - 0.99
+          - 0.95
+          - 0.9
+          - 0.7
+          - 0.5
+      percentiles-histogram:
+        '[do.sleep.method.timed]': true
+      minimum-expected-value:
+        '[do.sleep.method.timed]': 100ms
+      maximum-expected-value:
+        '[do.sleep.method.timed]': 1s
+      slo:
+        '[do.sleep.method.timed]': 300ms,500ms,1s,2s
+
+    # tags:
+    #   department: ${SERVICE_DEPARTMENT:software}
+    #   team: ${SERVICE_TEAM:greeting}
+    #   service: ${spring.application.name}
+    #   env: ${SERVICE_ENV:dev}
+    #   region: ${SERVICE_REGION:europe-west1}
+    #   '[instance.id]': ${SERVICE_INSTANCE_ID:asdlkjaslkdjasljdlasd}
+        
